@@ -51,7 +51,7 @@ detect_and_install_node() {
 
 # TODO: check node version >= 22
 check_node_version() {
-
+    echo "node version should be great or equal to 22";
 }
 
 detect_and_install_node
