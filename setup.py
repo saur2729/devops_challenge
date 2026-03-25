@@ -113,19 +113,19 @@ def run_app(base_dir):
                 print(f"killing old instance (pid {pid})")
                 try:
                     if platform.system() == "Windows":
-                        # taskkill often returns weird non-zero codes on success which crashes sh(),
-                        # so we use native subprocess module with check=False to safely ignore them.
-                        subprocess.run(
-                            ["taskkill", "/F", "/T", "/PID", pid],
-                            check=False,
-                            stdout=subprocess.DEVNULL,
-                            stderr=subprocess.DEVNULL,
-                        )
+                        os.system(f"taskkill /F /PID {pid} >NUL 2>&1")
                     else:
                         os.kill(int(pid), signal.SIGKILL)
                 except Exception:
                     print("looks like that process is already dead")
-        os.remove(lock_file)
+        try:
+            os.remove(lock_file)
+        except OSError:
+            pass
+
+    import time
+
+    time.sleep(1)
 
     print("starting validator in the background...")
 
@@ -137,7 +137,7 @@ def run_app(base_dir):
                 cwd=base_dir,
                 stdout=f_out,
                 stderr=subprocess.STDOUT,
-                creationflags=subprocess.CREATE_NEW_PROCESS_GROUP,
+                creationflags=0x00000008 | subprocess.CREATE_NEW_PROCESS_GROUP, # DETACHED_PROCESS
             )
         else:
             proc = subprocess.Popen(
