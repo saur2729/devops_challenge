@@ -95,7 +95,7 @@ def run_app(base_dir):
     logs_dir = os.path.join(base_dir, "logs")
     pid_dir = os.path.join(base_dir, "pid_lock")
     lock_file = os.path.join(pid_dir, "app.lock")
-    log_file = os.path.join(logs_dir, "setup.log")
+    log_file = os.path.join(logs_dir, "node_app.log")
 
     # make sure output dirs exist
     os.makedirs(logs_dir, exist_ok=True)

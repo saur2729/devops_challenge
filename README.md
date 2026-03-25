@@ -4,7 +4,7 @@ Node.js validator service designed to run in a detached process or natively insi
 
 ---
 
-## 🚀 Setup and Launch (New Python Automation)
+## 🚀 Setup and Launch (Using Python Framework)
 
 The easiest and most robust way to configure this node is using the new Python automation scripts. They automatically handle system dependencies (like Git and Node.js v22+), environment variables, logs, and process locks on both Linux and macOS.
 
