@@ -103,3 +103,15 @@ temp/
 # package-lock.json
 # yarn.lock
 # pnpm-lock.yaml
+
+# ----------------------------
+# Python / Automation Scripts
+# ----------------------------
+__pycache__/
+*.pyc
+
+# ----------------------------
+# Process locks
+# ----------------------------
+pid_lock/
+app.lock
