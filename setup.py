@@ -113,7 +113,7 @@ def run_app(base_dir):
                 print(f"killing old instance (pid {pid})")
                 try:
                     if platform.system() == "Windows":
-                        sh(["taskkill", "/F", "/PID", pid])
+                        sh(["taskkill", "/F", "/T", "/PID", pid])
                     else:
                         os.kill(int(pid), signal.SIGKILL)
                 except OSError:
@@ -126,7 +126,7 @@ def run_app(base_dir):
     with open(log_file, "a") as f_out:
         if platform.system() == "Windows":
             proc = subprocess.Popen(
-                ["npm", "start"],
+                ["node", "src/app.js"],
                 cwd=base_dir,
                 stdout=f_out,
                 stderr=subprocess.STDOUT,
@@ -135,7 +135,7 @@ def run_app(base_dir):
             )
         else:
             proc = subprocess.Popen(
-                ["npm", "start"],
+                ["node", "src/app.js"],
                 cwd=base_dir,
                 stdout=f_out,
                 stderr=subprocess.STDOUT,

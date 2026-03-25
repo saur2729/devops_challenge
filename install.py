@@ -6,6 +6,7 @@ import shutil
 import platform
 import argparse
 import subprocess
+import datetime
 
 
 class Logger:
@@ -17,10 +18,24 @@ class Logger:
 
         self.terminal = sys.stdout
         self.log = open(filepath, "a")
+        self._new_line = True
 
     def write(self, message):
+        if not message:
+            return
+
+        # Add timestamps dynamically to each new line in the log file
+        log_msg = ""
+        for char in message:
+            if self._new_line and char != '\n':
+                log_msg += datetime.datetime.now().strftime("[%Y-%m-%d %H:%M:%S] ")
+                self._new_line = False
+            log_msg += char
+            if char == '\n':
+                self._new_line = True
+
         self.terminal.write(message)
-        self.log.write(message)
+        self.log.write(log_msg)
         self.log.flush()
 
     def flush(self):
